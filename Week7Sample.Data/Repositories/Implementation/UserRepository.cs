@@ -84,6 +84,11 @@ namespace Week7Sample.Data.Repositories.Implementation
             return _context.Users.FirstOrDefault(x => x.Id == id);
         }
 
+        public User GetByEmail(string email)
+        {
+            return _context.Users.FirstOrDefault(x => x.Email == email);
+        }
+
         //        public IEnumerable<User> GetUsersBypagination(int page, int pageSize)
         public IEnumerable<User> GetUsersBypagination(List<User> list, int perpage, int page)
         {

@@ -62,3 +62,6 @@ C:\Users\Decagon\source\repos\Week7Sample\Week7Sample\bin\Debug\net6.0\Week7Samp
 C:\Users\Decagon\source\repos\Week7Sample\Week7Sample\bin\Debug\net6.0\Week7Sample.Model.pdb
 C:\Users\Decagon\source\repos\Week7Sample\Week7Sample\bin\Debug\net6.0\Humanizer.dll
 C:\Users\Decagon\source\repos\Week7Sample\Week7Sample\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\Decagon\source\repos\Week7Sample\Week7Sample\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Decagon\source\repos\Week7Sample\Week7Sample\bin\Debug\net6.0\Week7Sample.Common.dll
+C:\Users\Decagon\source\repos\Week7Sample\Week7Sample\bin\Debug\net6.0\Week7Sample.Common.pdb

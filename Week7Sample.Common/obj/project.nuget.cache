@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "dgSpecHash": "ZerregRBFGokzfmUo4zDsSqJMP/N+7GgF9MB4koqsARPZHrr6EP4L5LwZzIeDWV/PoehikKV19TzYBd71Duxxw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Decagon\\source\\repos\\Week7Sample\\Week7Sample.Common\\Week7Sample.Common.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Decagon\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
+    "C:\\Users\\Decagon\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\6.0.0\\microsoft.extensions.configuration.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\Decagon\\.nuget\\packages\\microsoft.extensions.primitives\\6.0.0\\microsoft.extensions.primitives.6.0.0.nupkg.sha512",
+    "C:\\Users\\Decagon\\.nuget\\packages\\microsoft.identitymodel.jsonwebtokens\\6.14.0\\microsoft.identitymodel.jsonwebtokens.6.14.0.nupkg.sha512",
+    "C:\\Users\\Decagon\\.nuget\\packages\\microsoft.identitymodel.logging\\6.14.0\\microsoft.identitymodel.logging.6.14.0.nupkg.sha512",
+    "C:\\Users\\Decagon\\.nuget\\packages\\microsoft.identitymodel.tokens\\6.14.0\\microsoft.identitymodel.tokens.6.14.0.nupkg.sha512",
+    "C:\\Users\\Decagon\\.nuget\\packages\\system.identitymodel.tokens.jwt\\6.14.0\\system.identitymodel.tokens.jwt.6.14.0.nupkg.sha512",
+    "C:\\Users\\Decagon\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "C:\\Users\\Decagon\\.nuget\\packages\\system.security.cryptography.cng\\4.5.0\\system.security.cryptography.cng.4.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}

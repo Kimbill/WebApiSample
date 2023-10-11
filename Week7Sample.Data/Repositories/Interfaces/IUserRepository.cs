@@ -18,6 +18,8 @@ namespace Week7Sample.Data.Repositories.Interfaces
 
         User GetById(string id);
 
+        User GetByEmail(string email);
+
         IEnumerable<User> GetUsersBypagination(List<User> list, int perpage, int page);
 
         IEnumerable<User> GetAll();

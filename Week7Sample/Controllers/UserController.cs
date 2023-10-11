@@ -21,7 +21,8 @@ namespace Week7Sample.Controllers
         }
 
         [HttpPost("add")]
-        [Authorize]
+        //[Authorize]
+        [AllowAnonymous]
         //[Authorize(Roles = UserRole.Admin)]
         public ActionResult AddUser([FromBody] AddUserDto adduser)
         {
@@ -118,6 +119,7 @@ namespace Week7Sample.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpPut("update/{id}")]
         public ActionResult UpdateUser(string id, [FromBody] UpdateUserDto updateUserDto)
         {

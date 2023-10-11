@@ -19,6 +19,14 @@ namespace Week7Sample.Model
         public string LastName { get; set; }
 
         [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+
+        [Required]
+        //[DataType(DataType.Password)]
+        public string Password { get; set; }
+
+        [Required]
         public UserRole UserRole { get; set; }
     }
 }

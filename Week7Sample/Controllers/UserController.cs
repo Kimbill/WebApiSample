@@ -45,6 +45,8 @@ namespace Week7Sample.Controllers
                 {
                     FirstName = adduser.FirstName,
                     LastName = adduser.LastName,
+                    Email = adduser.Email,
+                    Password = adduser.Password,
                     UserRole = UserRole.Admin,
                 };
 

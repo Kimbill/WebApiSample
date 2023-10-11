@@ -1,0 +1,12 @@
+C:\Users\Decagon\source\repos\Week7Sample\Week7Sample.Model\bin\Debug\net6.0\Week7Sample.Model.deps.json
+C:\Users\Decagon\source\repos\Week7Sample\Week7Sample.Model\bin\Debug\net6.0\Week7Sample.Model.dll
+C:\Users\Decagon\source\repos\Week7Sample\Week7Sample.Model\bin\Debug\net6.0\Week7Sample.Model.pdb
+C:\Users\Decagon\source\repos\Week7Sample\Week7Sample.Model\obj\Debug\net6.0\Week7Sample.Model.csproj.AssemblyReference.cache
+C:\Users\Decagon\source\repos\Week7Sample\Week7Sample.Model\obj\Debug\net6.0\Week7Sample.Model.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Decagon\source\repos\Week7Sample\Week7Sample.Model\obj\Debug\net6.0\Week7Sample.Model.AssemblyInfoInputs.cache
+C:\Users\Decagon\source\repos\Week7Sample\Week7Sample.Model\obj\Debug\net6.0\Week7Sample.Model.AssemblyInfo.cs
+C:\Users\Decagon\source\repos\Week7Sample\Week7Sample.Model\obj\Debug\net6.0\Week7Sample.Model.csproj.CoreCompileInputs.cache
+C:\Users\Decagon\source\repos\Week7Sample\Week7Sample.Model\obj\Debug\net6.0\Week7Sample.Model.dll
+C:\Users\Decagon\source\repos\Week7Sample\Week7Sample.Model\obj\Debug\net6.0\refint\Week7Sample.Model.dll
+C:\Users\Decagon\source\repos\Week7Sample\Week7Sample.Model\obj\Debug\net6.0\Week7Sample.Model.pdb
+C:\Users\Decagon\source\repos\Week7Sample\Week7Sample.Model\obj\Debug\net6.0\ref\Week7Sample.Model.dll

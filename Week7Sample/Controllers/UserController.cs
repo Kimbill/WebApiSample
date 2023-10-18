@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using Week7Sample.Data.Repositories.Interfaces;
@@ -14,17 +16,21 @@ namespace Week7Sample.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserRepository _userRepository;
+        private readonly UserManager<User> _userManager;
+        private readonly IMapper _mapper;
 
-        public UserController(IUserRepository userRepository)
+        public UserController(IUserRepository userRepository, UserManager<User> userManager, IMapper mapper)
         {
             _userRepository = userRepository;
+            _userManager = userManager;
+            _mapper = mapper;
         }
 
         [HttpPost("add")]
         //[Authorize]
         [AllowAnonymous]
         //[Authorize(Roles = UserRole.Admin)]
-        public ActionResult AddUser([FromBody] AddUserDto adduser)
+        public async Task<IActionResult> AddUser([FromBody] AddUserDto adduser)
         {
             try
             {
@@ -39,20 +45,47 @@ namespace Week7Sample.Controllers
                 }
 
                 //checked if user type is valid
-                
-                
-                var user = new User
-                {
-                    FirstName = adduser.FirstName,
-                    LastName = adduser.LastName,
-                    Email = adduser.Email,
-                    Password = adduser.Password,
-                    UserRole = UserRole.Admin,
-                };
 
-                var result = _userRepository.AddNew(user);
-                if (result == null)
-                    return BadRequest("Failed to create user");
+                var userExists = await _userManager.FindByEmailAsync(adduser.Email);
+                
+                
+                //var user = new User
+                //{
+                //    FirstName = adduser.FirstName,
+                //    LastName = adduser.LastName,
+                //    UserName = adduser.Email,
+                //    UserRole = UserRole.Admin,
+                //};
+
+                var mappedUser = _mapper.Map<User>(adduser);
+                //mappedUser.UserName = adduser.Email;
+
+
+                //var result = _userRepository.AddNew(user);
+
+                var result = await _userManager.CreateAsync(mappedUser, adduser.Password);
+
+                if (result.Succeeded)
+                {
+                    //return CreatedAtAction(nameof(GetUser), new { id = mappedUser.Id }, mappedUser);
+                    var userFromDb = _mapper.Map<UserReturnDto>(mappedUser);
+
+                    var responseObject = new ResponseObject<UserReturnDto>
+                    {
+                        StatusCode = 200,
+                        Message = $"User added",
+                        Data = userFromDb
+                    };
+
+                    return Ok(responseObject);
+                }
+
+                foreach(var err in result.Errors)
+                {
+                    ModelState.AddModelError(err.Code, err.Description);
+                }
+                
+                    return BadRequest(result);
 
                 return Ok(result);
             }
@@ -64,11 +97,12 @@ namespace Week7Sample.Controllers
         }
 
         [HttpGet("single/{id}")]
+        [AllowAnonymous]
         public ActionResult GetUser(string id)
         {
             if (string.IsNullOrEmpty(id))
             {
-                return BadRequest("Id provided should be empty");
+                return BadRequest("Id provided should not be empty");
             }
 
             var user = _userRepository.GetById(id);
@@ -77,7 +111,15 @@ namespace Week7Sample.Controllers
                 return NotFound("No record found");
             }
 
-            return Ok(user);
+            var userFromDb = _mapper.Map<UserReturnDto>(user);
+
+            var responseObject = new ResponseObject<UserReturnDto>
+            {
+                StatusCode = 200,
+                Message = $"User with id: {id} is found",
+                Data = userFromDb
+            };
+            return Ok(responseObject);
         }
 
         [HttpGet("list")]

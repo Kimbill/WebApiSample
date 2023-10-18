@@ -1,9 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
+﻿using Microsoft.AspNetCore.Mvc;
 using Week7Sample.Common.Security;
 using Week7Sample.Data.Repositories.Interfaces;
 using Week7Sample.Model;
@@ -16,19 +11,21 @@ namespace Week7Sample.Controllers
     {
         private readonly IConfiguration _configuration;
         private readonly IUserRepository _userRepository;
-        public AuthController(IConfiguration configuration, IUserRepository userRepository)
+        private readonly ILogger _logger;
+        public AuthController(IConfiguration configuration, IUserRepository userRepository, ILogger<AuthController> logger)
         {
             _configuration = configuration;
             _userRepository = userRepository;
+            _logger = logger;
         }
 
 
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginDto adduser)
         {
-            try
-            {
-                if (!ModelState.IsValid)
+            throw new Exception("This application must stop here");
+            
+            if (!ModelState.IsValid)
                 {
                     return BadRequest(ModelState);  
                 }
@@ -36,7 +33,7 @@ namespace Week7Sample.Controllers
                 var user =  _userRepository.GetByEmail(adduser.Email);
                 if(user != null)
                 {
-                    if (user.Password == adduser.Password)
+                    if (user.PasswordHash == adduser.Password)
                     {
                         var jwt = new Utilities(_configuration);
                         var token = jwt.GenerateJwt(user);
@@ -47,12 +44,6 @@ namespace Week7Sample.Controllers
                 }
 
                 return BadRequest("Invalid Email Credential");
-            }
-
-            catch(Exception ex)
-            {
-                return BadRequest();
-            }
         }
     }
 }

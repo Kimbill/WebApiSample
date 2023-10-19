@@ -23,10 +23,10 @@ namespace Week7Sample.Model
         public string Email { get; set; }
 
         [Required]
-        //[DataType(DataType.Password)]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
 
         [Required]
-        public UserRole UserRole { get; set; }
+        public string AttendanceStatus { get; set; }
     }
 }

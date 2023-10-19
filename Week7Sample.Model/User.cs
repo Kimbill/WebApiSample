@@ -26,6 +26,6 @@ namespace Week7Sample.Model
         //public string Password { get; set; }
 
         [Required]
-        public UserRole UserRole { get; set; }
+        public string AttendanceStatus { get; set; }
     }
 }

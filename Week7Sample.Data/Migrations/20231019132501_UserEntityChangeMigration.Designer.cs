@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Week7Sample.Data;
 
@@ -11,9 +12,10 @@ using Week7Sample.Data;
 namespace Week7Sample.Data.Migrations
 {
     [DbContext(typeof(Week7Context))]
-    partial class Week7ContextModelSnapshot : ModelSnapshot
+    [Migration("20231019132501_UserEntityChangeMigration")]
+    partial class UserEntityChangeMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

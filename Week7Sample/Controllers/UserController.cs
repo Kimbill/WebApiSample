@@ -57,6 +57,7 @@ namespace Week7Sample.Controllers
                 //    UserRole = UserRole.Admin,
                 //};
 
+                //var mappedUser = _mapper.Map<User>(adduser);
                 var mappedUser = _mapper.Map<User>(adduser);
                 //mappedUser.UserName = adduser.Email;
 
@@ -96,11 +97,17 @@ namespace Week7Sample.Controllers
             }
         }
 
+        [HttpPost("confirm-email")]
+        public IActionResult ConfirmEmail([FromBody] LoginDto adduser)
+        {
+            return Ok();
+        }
+
         [HttpGet("single/{id}")]
         [AllowAnonymous]
         public ActionResult GetUser(string id)
         {
-            if (string.IsNullOrEmpty(id))
+            if (string.IsNullOrWhiteSpace(id))
             {
                 return BadRequest("Id provided should not be empty");
             }

@@ -12,8 +12,13 @@ namespace Week7Sample.Model
 
         public string Message { get; set; }
 
-        public string[] ErrorMessages { get; set; }
+        public IEnumerable<string> ErrorMessages { get; set; }
 
         public T Data { get; set; }
+
+        public ResponseObject()
+        {
+            ErrorMessages = new List<string>();
+        }
     }
 }

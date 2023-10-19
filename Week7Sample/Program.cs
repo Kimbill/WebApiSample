@@ -79,12 +79,13 @@ try
     });
 
     builder.Services.AddIdentity<User, IdentityRole>(
-    //    option =>
-    //{
+        option =>
+    {
+    //option.SignIn.RequireConfirmedEmail = true;
     //    option.Password.RequiredUniqueChars = 0;
     //    option.Password.RequireDigit = false;
     //    option.Password.RequireUppercase = false;
-    //}
+    }
     ).AddEntityFrameworkStores<Week7Context>();
 
     builder.Services.AddAutoMapper(typeof(Program));

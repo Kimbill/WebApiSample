@@ -12,7 +12,7 @@ namespace Week7Sample.Model
 
         public string Message { get; set; }
 
-        public IEnumerable<string> ErrorMessages { get; set; }
+        public List<string> ErrorMessages { get; set; }
 
         public T Data { get; set; }
 

@@ -78,15 +78,26 @@ try
         };
     });
 
-    builder.Services.AddIdentity<User, IdentityRole>(
-        option =>
-    {
-    //option.SignIn.RequireConfirmedEmail = true;
-    //    option.Password.RequiredUniqueChars = 0;
-    //    option.Password.RequireDigit = false;
-    //    option.Password.RequireUppercase = false;
-    }
-    ).AddEntityFrameworkStores<Week7Context>();
+    //builder.Services.AddIdentity<User, IdentityRole>(
+    //    option =>
+    //{
+    ////option.SignIn.RequireConfirmedEmail = true;
+    ////    option.Password.RequiredUniqueChars = 0;
+    ////    option.Password.RequireDigit = false;
+    ////    option.Password.RequireUppercase = false;
+    //}
+    //).AddEntityFrameworkStores<Week7Context>();
+
+    //builder.Services.AddIdentity<User, IdentityRole>(/* ... */)
+    //.AddEntityFrameworkStores<Week7Context>()
+    //.AddSignInManager<SignInManager<User>>()
+    //.AddUserManager<UserManager<User>>();
+
+    builder.Services.AddIdentity<User, IdentityRole>(/* ... */)
+    .AddEntityFrameworkStores<Week7Context>()
+    .AddDefaultTokenProviders();
+
+
 
     builder.Services.AddAutoMapper(typeof(Program));
 
@@ -100,17 +111,17 @@ try
         app.UseSwagger();
         app.UseSwaggerUI();
 
-        app.UseExceptionHandler(builder =>
-        {
-            builder.Run(async context =>
-            {
-                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                var error = context.Features.Get<IExceptionHandlerPathFeature>();
+        //app.UseExceptionHandler(builder =>
+        //{
+        //    builder.Run(async context =>
+        //    {
+        //        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+        //        var error = context.Features.Get<IExceptionHandlerPathFeature>();
 
-                logger.Error($"Error path: {error.Path}, Error thrown: { error.Error.Message}, " +
-                    $"Inner Message: {error.Error.InnerException}");
-            });
-        });
+        //        logger.Error($"Error path: {error.Path}, Error thrown: { error.Error.Message}, " +
+        //            $"Inner Message: {error.Error.InnerException}");
+        //    });
+        //});
     }
 
     app.UseHttpsRedirection();

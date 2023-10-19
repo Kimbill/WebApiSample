@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Week7Sample.Common.Security;
+using Week7Sample.Common.Services;
 using Week7Sample.Data.Repositories.Interfaces;
 using Week7Sample.Model;
+using Week7Sample.Settings;
 
 namespace Week7Sample.Controllers
 {
@@ -91,7 +93,6 @@ namespace Week7Sample.Controllers
         [HttpPost("forgot-password")]
         public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordDto adduser)
         {
-            //get the email to send a password reset token to
             var responseObject = new ResponseObject<string>()
             {
                 StatusCode = 400
@@ -102,27 +103,28 @@ namespace Week7Sample.Controllers
                 return BadRequest(ModelState);
             }
 
-            //generate token to reset password
-
             var user = await _userManager.FindByEmailAsync(adduser.Email);
-            
+
             if (user != null)
             {
                 var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-                var link = Url.Action("ResetPassword", new { email = adduser.Email, token });
-                //_logger.LogError(link);
-                //responseObject.Message = "Confirmation token sent to your mail";
-                //responseObject.StatusCode = 200;
-                //return Ok(responseObject);
-                responseObject.Message = "Confirmation token sent to your mail";
+                var callbackUrl = Url.Action("ResetPassword", "Auth", new { email = adduser.Email, token }, Request.Scheme);
+
+                // Example email sending functionality
+                //var emailService = new MockEmailService(); // Use the mock service
+                //var emailBody = $"Please reset your password by clicking <a href='{callbackUrl}'>here</a>";
+                //await emailService.SendEmailAsync(adduser.Email, "Reset Password", emailBody);
+
+
+                responseObject.Message = "Password reset link has been sent to your email";
                 responseObject.StatusCode = 200;
                 return Ok(responseObject);
             }
 
-            responseObject.Message = $"user with email: {adduser.Email} was not found";
+            responseObject.Message = $"User with email {adduser.Email} was not found";
             return BadRequest(responseObject);
         }
-        
+
         [HttpPost("reset-password")]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto adduser)
         {
@@ -150,11 +152,10 @@ namespace Week7Sample.Controllers
                 }
                 else
                 {
-                    foreach(var item in result.Errors)
+                    foreach(var err in result.Errors)
                     {
-                        ModelState.AddModelError(item.Code, item.Description);
                         responseObject.Message = "Password reset Failed";
-                        //responseObject.ErrorMessages.Add(item.Description);
+                        responseObject.ErrorMessages.Add(err.Description);
                         return BadRequest(ModelState);
                     }
                 }

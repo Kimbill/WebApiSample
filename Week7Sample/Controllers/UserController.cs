@@ -12,7 +12,7 @@ namespace Week7Sample.Controllers
 {
     [Route("api/[controller]")]
     //[ApiController]
-    [Authorize]
+    //[Authorize(Roles = "Regular")]
     public class UserController : ControllerBase
     {
         private readonly IUserRepository _userRepository;
@@ -71,6 +71,8 @@ namespace Week7Sample.Controllers
                     //return CreatedAtAction(nameof(GetUser), new { id = mappedUser.Id }, mappedUser);
                     var userFromDb = _mapper.Map<UserReturnDto>(mappedUser);
 
+                    await _userManager.AddToRoleAsync(mappedUser, "Regular");
+
                     var responseObject = new ResponseObject<UserReturnDto>
                     {
                         StatusCode = 200,
@@ -98,13 +100,15 @@ namespace Week7Sample.Controllers
         }
 
         [HttpPost("confirm-email")]
+        [Authorize]
         public IActionResult ConfirmEmail([FromBody] LoginDto adduser)
         {
             return Ok();
         }
 
         [HttpGet("single/{id}")]
-        [AllowAnonymous]
+        //[AllowAnonymous]
+        [Authorize]
         public ActionResult GetUser(string id)
         {
             if (string.IsNullOrWhiteSpace(id))
@@ -130,7 +134,8 @@ namespace Week7Sample.Controllers
         }
 
         [HttpGet("list")]
-        [AllowAnonymous]
+        [Authorize]
+        //[AllowAnonymous]
         public ActionResult<IEnumerable<User>> GetAllusers(int page, int perpage)
         {
             try
@@ -170,7 +175,7 @@ namespace Week7Sample.Controllers
             }
         }
 
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [HttpPut("update/{id}")]
         public ActionResult UpdateUser(string id, [FromBody] UpdateUserDto updateUserDto)
         {

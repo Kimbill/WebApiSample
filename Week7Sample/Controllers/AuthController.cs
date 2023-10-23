@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Week7Sample.Common.Security;
-using Week7Sample.Common.Services;
 using Week7Sample.Data.Repositories.Interfaces;
 using Week7Sample.Model;
-using Week7Sample.Settings;
 
 namespace Week7Sample.Controllers
 {
@@ -108,7 +106,8 @@ namespace Week7Sample.Controllers
             if (user != null)
             {
                 var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-                var callbackUrl = Url.Action("ResetPassword", "Auth", new { email = adduser.Email, token }, Request.Scheme);
+                //var callbackUrl = Url.Action("ResetPassword", "Auth", new { email = adduser.Email, token }, Request.Scheme);
+                var link = Url.Action("ResetPassword", new { email = adduser.Email, token });
 
                 // Example email sending functionality
                 //var emailService = new MockEmailService(); // Use the mock service
@@ -148,7 +147,7 @@ namespace Week7Sample.Controllers
                 {
                     responseObject.Message = "Password reset Successful";
                     responseObject.StatusCode = 200;
-                    return Ok();
+                    return Ok(responseObject);
                 }
                 else
                 {
@@ -156,13 +155,23 @@ namespace Week7Sample.Controllers
                     {
                         responseObject.Message = "Password reset Failed";
                         responseObject.ErrorMessages.Add(err.Description);
-                        return BadRequest(ModelState);
+                        return BadRequest(responseObject);
                     }
                 }
             }
             responseObject.Message = $"user with email: {adduser.Email} was not found";
             return BadRequest(responseObject);
 
+        }
+
+        [HttpPost("logout")]
+
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+
+            return Ok(new ResponseObject<string> { StatusCode = 200, Message = "Logout is Successful" });
+            
         }
     }
 }

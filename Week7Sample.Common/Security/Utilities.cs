@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -14,16 +15,24 @@ namespace Week7Sample.Common.Security
     public class Utilities
     {
         private readonly IConfiguration _configuration;
-        public Utilities(IConfiguration configuration)
+        private readonly UserManager<User> _userManager;
+        public Utilities(IConfiguration configuration, UserManager<User> userManager)
         {
             _configuration = configuration;
+            _userManager = userManager;
         }
-        public string GenerateJwt(User user)
+        public async Task<string> GenerateJwt(User user)
         {
             var listOfClaims = new List<Claim>();
 
             listOfClaims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id));
             listOfClaims.Add(new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}"));
+
+            var roles = await _userManager.GetRolesAsync(user);
+            foreach (var role in roles)
+            {
+                listOfClaims.Add(new Claim(ClaimTypes.Role, role));
+            }
 
             var key = Encoding.UTF8.GetBytes(_configuration.GetSection("JWT:Key").Value);
             var tokenDescriptor = new SecurityTokenDescriptor

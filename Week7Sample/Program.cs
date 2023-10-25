@@ -12,6 +12,7 @@ using NLog;
 using NLog.Web;
 using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
+using Week7Sample.Service;
 
 var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
 logger.Debug("init main");
@@ -73,11 +74,23 @@ try
         {
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(key),
-            ValidateAudience = false,
-            ValidateIssuer = false,
+            ValidateAudience = true,
+            ValidateIssuer = true,
+            ValidateLifetime = true,
+            ValidAudience = builder.Configuration["JWT:Audience"],
+            ValidIssuer = builder.Configuration["JWT:Issuer"],
+            ClockSkew = TimeSpan.Zero
         };
     });
 
+    builder.Services.AddAuthorization(options =>
+    {
+        options.AddPolicy("RegularRole", policy => policy.RequireRole("regular"));
+        options.AddPolicy("AdminOrSuper", policy => policy.RequireAssertion(
+                          context => context.User.IsInRole("admin")
+                          || context.User.IsInRole("super-admin")
+        ));
+    });
     //builder.Services.AddIdentity<User, IdentityRole>(
     //    option =>
     //{
@@ -100,6 +113,7 @@ try
 
 
     builder.Services.AddAutoMapper(typeof(Program));
+    builder.Services.AddScoped<IUploadService, UploadService>();
 
 
     //Pipelines are below **********************************************8
@@ -128,9 +142,9 @@ try
 
     app.UseRouting();
 
-    app.UseAuthorization();
-
     app.UseAuthentication();
+
+    app.UseAuthorization();
 
     app.MapControllers();
 

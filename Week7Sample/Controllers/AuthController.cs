@@ -6,8 +6,8 @@ using Week7Sample.Model;
 
 namespace Week7Sample.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
-    //[ApiController]
     public class AuthController : ControllerBase
     {
         private readonly IConfiguration _configuration;
@@ -50,8 +50,8 @@ namespace Week7Sample.Controllers
 
                     if (result.Succeeded)
                     {
-                        var jwt = new Utilities(_configuration);
-                        var token = jwt.GenerateJwt(user);
+                        var jwt = new Utilities(_configuration, _userManager);
+                        var token = await jwt.GenerateJwt(user);
                         responseObject.Message = "Login Successful";
                         responseObject.StatusCode = 200;
                         responseObject.Data = token;

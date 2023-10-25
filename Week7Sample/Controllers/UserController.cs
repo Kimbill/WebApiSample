@@ -7,29 +7,28 @@ using System.Data;
 using Week7Sample.Data.Repositories.Interfaces;
 using Week7Sample.Model;
 using Week7Sample.Model.Enums;
+using Week7Sample.Service;
 
 namespace Week7Sample.Controllers
 {
     [Route("api/[controller]")]
-    //[ApiController]
-    //[Authorize(Roles = "Regular")]
+    //[Authorize(Roles = "AdminOrSuper")]
     public class UserController : ControllerBase
     {
         private readonly IUserRepository _userRepository;
         private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
+        private readonly IUploadService _uploadService;
 
-        public UserController(IUserRepository userRepository, UserManager<User> userManager, IMapper mapper)
+        public UserController(IUserRepository userRepository, UserManager<User> userManager, IMapper mapper, IUploadService uploadService)
         {
             _userRepository = userRepository;
             _userManager = userManager;
             _mapper = mapper;
+            _uploadService = uploadService;
         }
 
         [HttpPost("add")]
-        //[Authorize]
-        [AllowAnonymous]
-        //[Authorize(Roles = UserRole.Admin)]
         public async Task<IActionResult> AddUser([FromBody] AddUserDto adduser)
         {
             try
@@ -71,7 +70,7 @@ namespace Week7Sample.Controllers
                     //return CreatedAtAction(nameof(GetUser), new { id = mappedUser.Id }, mappedUser);
                     var userFromDb = _mapper.Map<UserReturnDto>(mappedUser);
 
-                    await _userManager.AddToRoleAsync(mappedUser, "Regular");
+                    //await _userManager.AddToRoleAsync(mappedUser, "regular");
 
                     var responseObject = new ResponseObject<UserReturnDto>
                     {
@@ -90,7 +89,7 @@ namespace Week7Sample.Controllers
                 
                     return BadRequest(result);
 
-                return Ok(result);
+                //return Ok(result);
             }
             catch(Exception ex)
             {
@@ -100,15 +99,12 @@ namespace Week7Sample.Controllers
         }
 
         [HttpPost("confirm-email")]
-        [Authorize]
         public IActionResult ConfirmEmail([FromBody] LoginDto adduser)
         {
             return Ok();
         }
 
         [HttpGet("single/{id}")]
-        //[AllowAnonymous]
-        [Authorize]
         public ActionResult GetUser(string id)
         {
             if (string.IsNullOrWhiteSpace(id))
@@ -134,8 +130,6 @@ namespace Week7Sample.Controllers
         }
 
         [HttpGet("list")]
-        [Authorize]
-        //[AllowAnonymous]
         public ActionResult<IEnumerable<User>> GetAllusers(int page, int perpage)
         {
             try
@@ -159,6 +153,7 @@ namespace Week7Sample.Controllers
                 //    return BadRequest();
 
                 var result = _userRepository.GetAll();
+
                 if (result !=null && result.Count() > 0)
                 {
                     var paged = _userRepository.GetUsersBypagination(result.ToList(), perpage, page);
@@ -175,7 +170,6 @@ namespace Week7Sample.Controllers
             }
         }
 
-        //[AllowAnonymous]
         [HttpPut("update/{id}")]
         public ActionResult UpdateUser(string id, [FromBody] UpdateUserDto updateUserDto)
         {
@@ -334,6 +328,21 @@ namespace Week7Sample.Controllers
 
             return BadRequest("Failed to delete users");
   
+        }
+
+        [HttpPost]
+        [Route("upload")]
+        public async Task <IActionResult> UploadImage([FromForm] PhotoUploadDto model)
+        {
+            var uploadResult = await _uploadService.UploadFileAsync(model.File);
+            if (uploadResult != null)
+            {
+                return Ok($"publicId {uploadResult["PublicId"]}, Url {uploadResult["Url"]}");
+            }
+            else
+            {
+                return BadRequest("upload unsuccessful");
+            }
         }
     }
 }

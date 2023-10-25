@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "jqjovhQi1FAAAqqXSfLtkwHzw6vNWV11Hz6ubZJ9uy+uWkQfkPRcisGKWOzNyleFDgM/MtcTZ9i+zy6n4y83iA==",
+  "dgSpecHash": "OK/DcXWOELn4Vl/iLS9imhl9y+zzhApTpYeb2LmNfsPXk7HYMc0KjU0+w5L5bAWwxKjqFVICdo/ba4jG0SqONA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Decagon\\source\\repos\\Week7Sample\\Week7Sample.Common\\Week7Sample.Common.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Decagon\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\6.0.1\\microsoft.aspnetcore.cryptography.internal.6.0.1.nupkg.sha512",
     "C:\\Users\\Decagon\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\6.0.1\\microsoft.aspnetcore.cryptography.keyderivation.6.0.1.nupkg.sha512",
+    "C:\\Users\\Decagon\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.2.0\\microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
     "C:\\Users\\Decagon\\.nuget\\packages\\microsoft.aspnetcore.identity.entityframeworkcore\\6.0.1\\microsoft.aspnetcore.identity.entityframeworkcore.6.0.1.nupkg.sha512",
     "C:\\Users\\Decagon\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\Decagon\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.1\\microsoft.entityframeworkcore.6.0.1.nupkg.sha512",

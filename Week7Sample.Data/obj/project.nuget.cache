@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "sd/L8TusmsuPYxv2GSomU0+bAXc7GTHkMSVh8zQ21v0GIzGE/KzTeBuLmDXUaTuvhU8zyaROZQLOrdZvvMl7SQ==",
+  "dgSpecHash": "05zbeBxXyqfPoQuNT/FENwJRy2zBgcI4BUxHdzLf0bvYys2zjAulakmSgWor5NcIKE4qg9wJbdu1ZMaRFQdt8w==",
   "success": true,
   "projectFilePath": "C:\\Users\\Decagon\\source\\repos\\Week7Sample\\Week7Sample.Data\\Week7Sample.Data.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Decagon\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Decagon\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\6.0.1\\microsoft.aspnetcore.cryptography.internal.6.0.1.nupkg.sha512",
     "C:\\Users\\Decagon\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\6.0.1\\microsoft.aspnetcore.cryptography.keyderivation.6.0.1.nupkg.sha512",
+    "C:\\Users\\Decagon\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.2.0\\microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
     "C:\\Users\\Decagon\\.nuget\\packages\\microsoft.aspnetcore.identity.entityframeworkcore\\6.0.1\\microsoft.aspnetcore.identity.entityframeworkcore.6.0.1.nupkg.sha512",
     "C:\\Users\\Decagon\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\Decagon\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",
